@@ -1,0 +1,38 @@
+﻿<Window x:Class="MiniMaster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniMaster"
+        mc:Ignorable="d"
+        Title="MiniMaster" Height="609.5" Width="1036.5"
+        Closing="Window_Closing" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    <DockPanel Name="MainDockPanel">
+        <!-- https://www.norberteder.com/windows-presentation-foundation-45-das-ribbon-steuerelement/ -->
+        <Ribbon x:Name="RibbonWin" DockPanel.Dock="Top" SelectedIndex="0">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu>
+                    <RibbonApplicationMenuItem Name="NewMenuItem" Header="Neu" ImageSource="{StaticResource NewFileImage}" Click="NewMenuItem_Click" />
+                    <RibbonApplicationMenuItem Name="OpenMenuItem" Header="Öffnen" ImageSource="{StaticResource OpenFileImage}" Click="OpenMenuItem_Click" />
+                    <RibbonApplicationMenuItem Name="SaveMenuItem" Header="Speichern" ImageSource="{StaticResource SaveImage}" Click="SaveMenuItem_Click" IsEnabled="{Binding IsWorkspaceActive}" />
+                    <RibbonApplicationSplitMenuItem IsEnabled="False" Height="20" />
+                    <RibbonApplicationMenuItem Header="Einstellungen" ImageSource="{StaticResource SettingsImage}"/>
+                    <RibbonApplicationMenuItem Header="Info" ImageSource="{StaticResource InfoImage}"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Verwaltung" IsEnabled="{Binding IsWorkspaceActive}">
+                <RibbonGroup Header="Stammdaten">
+                    <RibbonButton Name="OpenAcolyteRibbonButton" Label="Ministranten" LargeImageSource="{StaticResource AcolytesImage}" Click="OpenAcolyteRibbonButton_Click" />
+                </RibbonGroup>
+                <RibbonGroup Header="Konfiguration">
+                    <RibbonButton Name="OpenTemplatesRibbonButton" Label="Vorlagen" LargeImageSource="{StaticResource TemplateImage}" Click="OpenTemplatesRibbonButton_Click" />
+                    <RibbonButton Name="OpenJobsRibbonButton" Label="Aufgaben" LargeImageSource="{StaticResource JobsImage}" Click="OpenJobsRibbonButton_Click" />
+                </RibbonGroup> 
+            </RibbonTab>
+        </Ribbon>
+        <Frame Name="ContentFrame" NavigationUIVisibility="Hidden" Navigating="ContentFrame_Navigating"></Frame>
+    </DockPanel>
+</Window>

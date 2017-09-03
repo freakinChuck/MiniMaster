@@ -1,0 +1,110 @@
+﻿<Page x:Class="MiniMaster.ServiceTemplate.ManageServiceTemplateGroupView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MiniMaster.ServiceTemplate"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="600"
+      Title="ManageServiceTemplateGroupView">
+
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" Width="211">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex}" ItemsSource="{Binding AllServiceTemplateGroups}" SelectionChanged="ListView_SelectionChanged" SelectionMode="Single" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Vorlage" Width="200" DisplayMemberBinding="{Binding Text}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Grid.Column="0" Grid.Row="1" Padding="5,5,5,5" Command="{Binding NewServiceTemplateGroupCommand}">Neu</Button>
+            <Button Grid.Column="1" Grid.Row="1" Padding="5,5,5,5" Command="{Binding RemoveServiceTemplateGroupCommand}" IsEnabled="{Binding IsServiceTemplateGroupSelected}" >Entfernen</Button>
+
+        </Grid>
+
+        <Grid IsEnabled="{Binding IsServiceTemplateGroupSelected}">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="1" />
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0">Bezeichnung</Label>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=SelectedServiceTemplateGroup.Text, Mode=TwoWay}" Grid.ColumnSpan="2"></TextBox>
+            <Label Grid.Column="0" Grid.Row="1">Standard</Label>
+            <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Path=SelectedServiceTemplateGroup.Default, Mode=TwoWay}" Grid.ColumnSpan="2"></CheckBox>
+
+            <Border BorderBrush="Gray" BorderThickness="1"  Grid.Row="2" Grid.ColumnSpan="4" >
+
+                <DockPanel>
+                    <Grid DockPanel.Dock="Left" Width="211">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedSubIndex}" ItemsSource="{Binding AllServiceTemplates}" SelectionMode="Single" Grid.Row="0" SelectionChanged="SubListView_SelectionChanged">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Gottesdienst" Width="200" DisplayMemberBinding="{Binding DisplayString}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Grid.Column="0" Grid.Row="1" Padding="5,5,5,5" Command="{Binding NewServiceTemplateCommand}">Neu</Button>
+                        <Button Grid.Column="1" Grid.Row="1" Padding="5,5,5,5" Command="{Binding RemoveServiceTemplateCommand}" IsEnabled="{Binding IsServiceTemplateSelected}" >Entfernen</Button>
+
+                    </Grid>
+
+                    <Grid IsEnabled="{Binding IsServiceTemplateSelected}">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Margin" Value="1" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">Tag</Label>
+                        <ComboBox Name="dayComboBox" DisplayMemberPath="Text" SelectedValuePath="Value" Grid.Column="1" Grid.Row="0" SelectedValue="{Binding SelectedServiceTemplate.Day }" Grid.ColumnSpan="2">
+                        </ComboBox>
+                        <Label Grid.Column="0" Grid.Row="1">Zeit</Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SelectedServiceTemplate.Time, Mode=TwoWay, StringFormat=hh\\:mm}" Grid.ColumnSpan="2"></TextBox>
+
+                    </Grid>
+
+                </DockPanel>
+            </Border>
+
+        </Grid>
+    </DockPanel>
+</Page>
