@@ -23,6 +23,12 @@
                     <RibbonApplicationMenuItem Header="Info" ImageSource="{StaticResource InfoImage}" Click="InfoMenuItem_Click"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Planung" IsEnabled="{Binding IsWorkspaceActive}">
+                <RibbonGroup Header="Gottesdienste">
+                    <RibbonButton Name="ServiceManagementRibbonButton" Label="Gottesdienste" LargeImageSource="{StaticResource ServiceImage}" />
+                    <RibbonButton Name="ServiceByTemplateRibbonButton" Label="nach Vorlage" LargeImageSource="{StaticResource ServiceByTemplateImage}" Click="ServiceByTemplateRibbonButton_Click" />
+                </RibbonGroup>
+            </RibbonTab>
             <RibbonTab Header="Verwaltung" IsEnabled="{Binding IsWorkspaceActive}">
                 <RibbonGroup Header="Stammdaten">
                     <RibbonButton Name="OpenAcolyteRibbonButton" Label="Ministranten" LargeImageSource="{StaticResource AcolytesImage}" Click="OpenAcolyteRibbonButton_Click" />

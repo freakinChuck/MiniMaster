@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ServiceByTemplate\ManageServiceByTemplateView.xaml.cs">
+      <DependentUpon>ManageServiceByTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceByTemplate\ManageServiceByTemplateViewModel.cs" />
     <Compile Include="ServiceTemplate\ServiceTemplateViewModel.cs" />
     <Compile Include="ServiceTemplate\ServiceTemplateGroupViewModel.cs" />
     <Compile Include="ServiceTemplate\ManageServiceTemplateGroupsView.xaml.cs">
@@ -79,6 +83,10 @@
     </Compile>
     <Compile Include="SystemSettings\ManageSystemSettingsViewModel.cs" />
     <Compile Include="_Helper\BindingCommand.cs" />
+    <Page Include="ServiceByTemplate\ManageServiceByTemplateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ServiceTemplate\ManageServiceTemplateGroupsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -160,6 +168,10 @@
   <ItemGroup>
     <Resource Include="Ressources\Icons\299065 - component.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\285665 - calendar.png" />
+    <Resource Include="Ressources\Icons\285670 - calendar.png" />
+    <Resource Include="Ressources\Icons\299096 - calendar clock.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

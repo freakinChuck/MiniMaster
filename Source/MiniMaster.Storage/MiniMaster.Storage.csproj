@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Model\AcolyteModel.cs" />
     <Compile Include="Model\JobModel.cs" />
+    <Compile Include="Model\ServiceJobModel.cs" />
+    <Compile Include="Model\ServiceModel.cs" />
     <Compile Include="Model\ServiceTemplate\ServiceTemplateModel.cs" />
     <Compile Include="Model\ServiceTemplate\ServiceTemplateGroupModel.cs" />
     <Compile Include="Model\SystemSettingsModel.cs" />

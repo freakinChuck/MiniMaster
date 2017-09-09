@@ -10,4 +10,7 @@
     <BitmapImage x:Key="SettingsImage" UriSource="Icons/299100 - screwdriver wrench.png" />
     <BitmapImage x:Key="JobsImage" UriSource="Icons/285638 - pencil.png" />
     <BitmapImage x:Key="TemplateImage" UriSource="Icons/299065 - component.png" />
+    <BitmapImage x:Key="ServiceImage" UriSource="Icons/285665 - calendar.png" />
+    <BitmapImage x:Key="ServiceByTemplateImage" UriSource="Icons/285670 - calendar.png" />
+    <BitmapImage x:Key="GeneratePlanImage" UriSource="Icons/299096 - calendar clock.png" />
 </ResourceDictionary>

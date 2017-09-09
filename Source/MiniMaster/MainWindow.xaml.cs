@@ -120,6 +120,10 @@ namespace MiniMaster
         {
             MessageBox.Show("INFO, TODO");
         }
-        
+
+        private void ServiceByTemplateRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new ServiceByTemplate.ManageServiceByTemplateView();
+        }
     }
 }

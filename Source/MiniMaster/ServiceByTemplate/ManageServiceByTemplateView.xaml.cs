@@ -13,31 +13,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MiniMaster.Acolyte
+namespace MiniMaster.ServiceByTemplate
 {
     /// <summary>
-    /// Interaction logic for ManageAcolyteView.xaml
+    /// Interaction logic for ManageServiceByTemplateView.xaml
     /// </summary>
-    public partial class ManageAcolyteView : Page
+    public partial class ManageServiceByTemplateView : Page
     {
-        public ManageAcolyteView()
+        public ManageServiceByTemplateView()
         {
             InitializeComponent();
-            this.DataContext = new ManageAcolyteViewModel();
+            this.DataContext = new ManageServiceByTemplateViewModel();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                var newSelectedItem = e.AddedItems[0] as AcolyteViewModel;
-                ((ManageAcolyteViewModel)this.DataContext).SelectedAcolyte = newSelectedItem;
+                var newSelectedItem = e.AddedItems[0] as ServiceTemplate.ServiceTemplateGroupViewModel;
+                ((ManageServiceByTemplateViewModel)this.DataContext).SelectedTemplate = newSelectedItem;
             }
             else
             {
-                ((ManageAcolyteViewModel)this.DataContext).SelectedAcolyte = null;
+                ((ManageServiceByTemplateViewModel)this.DataContext).SelectedTemplate = null;
             }
         }
-
     }
 }
