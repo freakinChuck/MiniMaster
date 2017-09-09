@@ -5,9 +5,9 @@ using MiniMaster.Storage;
 
 namespace MiniMaster.Job
 {
-    public class JobViewModel : INotifyPropertyChanged
+    public class TemplateJobViewModel : INotifyPropertyChanged
     {
-        public JobViewModel(JobModel storageJob)
+        public TemplateJobViewModel(JobModel storageJob)
         {
             this.storageJob = storageJob;
             this.PropertyChanged += JobViewModel_PropertyChanged;
@@ -39,6 +39,16 @@ namespace MiniMaster.Job
             {
                 storageJob.Comment = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Comment"));
+            }
+        }
+
+        public int Order
+        {
+            get { return storageJob.Order; }
+            set
+            {
+                storageJob.Order = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Order"));
             }
         }
 

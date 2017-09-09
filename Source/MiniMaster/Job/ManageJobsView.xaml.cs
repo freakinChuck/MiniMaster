@@ -30,7 +30,7 @@ namespace MiniMaster.Job
         {
             if (e.AddedItems.Count > 0)
             {
-                var newSelectedItem = e.AddedItems[0] as JobViewModel;
+                var newSelectedItem = e.AddedItems[0] as TemplateJobViewModel;
                 ((ManageJobViewModel)this.DataContext).SelectedJob = newSelectedItem;
             }
             else

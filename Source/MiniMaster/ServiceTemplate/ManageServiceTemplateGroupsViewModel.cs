@@ -1,4 +1,5 @@
 ﻿using MiniMaster._Helper;
+using MiniMaster.Job;
 using MiniMaster.Storage;
 using MiniMaster.Storage.Model;
 using MiniMaster.Storage.Model.ServiceTemplate;
@@ -43,6 +44,11 @@ namespace MiniMaster.ServiceTemplate
             SelectedServiceTemplateGroup = null;
         }
 
+        public BindingList<TemplateJobViewModel> AllJobs
+        {
+            get; set;
+        }
+
         public BindingList<ServiceTemplateGroupViewModel> AllServiceTemplateGroups { get; set; }
         private ServiceTemplateGroupViewModel selectedServiceTemplateGroup;
 
@@ -77,6 +83,7 @@ namespace MiniMaster.ServiceTemplate
             set
             {
                 selectedServiceTemplate = value;
+                LoadJobs();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedServiceTemplate)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsServiceTemplateGroupSelected)));
             }
@@ -131,7 +138,49 @@ namespace MiniMaster.ServiceTemplate
             selectedServiceTemplate.RemoveServiceTemplateFromModel();
         }
 
+        public BindingCommand AddAcolyteCommand
+        {
+            get
+            {
+                return new BindingCommand((jobId) =>
+                {
+                    this.SelectedServiceTemplate.Jobs.Add((string)jobId);
+                    LoadJobs();
+                });
+            }
+        }
+
+        public BindingCommand SubtractAcolyteCommand
+        {
+            get
+            {
+                return new BindingCommand((jobId) =>
+                {
+                    if (this.SelectedServiceTemplate.Jobs.Contains((string)jobId))
+                    {
+                        this.SelectedServiceTemplate.Jobs.Remove((string)jobId);
+                    }
+                    LoadJobs();
+                });
+            }
+        }
+
         public bool IsServiceTemplateGroupSelected => SelectedServiceTemplateGroup != null;
         public bool IsServiceTemplateSelected => SelectedServiceTemplate != null;
+
+        private void LoadJobs()
+        {
+            var template = this.SelectedServiceTemplate;
+            if (template == null)
+            {
+                this.AllJobs = new BindingList<TemplateJobViewModel>();
+            }
+            else
+            {
+                this.AllJobs = new BindingList<TemplateJobViewModel>(Workspace.CurrentData.Jobs.OrderBy(x => x.Order).Select(x => new TemplateJobViewModel(template.storageServiceTemplate, x)).ToList());
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllJobs)));
+        }
+
     }
 }

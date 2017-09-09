@@ -1,8 +1,10 @@
 ﻿using MiniMaster.Storage.Model;
 using System.ComponentModel;
 using System;
+using System.Linq;
 using MiniMaster.Storage;
 using MiniMaster.Storage.Model.ServiceTemplate;
+using System.Collections.Generic;
 
 namespace MiniMaster.ServiceTemplate
 {
@@ -19,7 +21,7 @@ namespace MiniMaster.ServiceTemplate
             Workspace.RegisterDataChanged();
         }
 
-        private ServiceTemplateModel storageServiceTemplate;
+        internal ServiceTemplateModel storageServiceTemplate;
 
         public string Id => storageServiceTemplate.Id;
 
@@ -52,6 +54,15 @@ namespace MiniMaster.ServiceTemplate
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Time"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DisplayString"));
             }
+        }
+
+        public List<string> Jobs
+        {
+            get { return storageServiceTemplate.Jobs; }
+        }
+        public int JobCount(string jobId)
+        {
+            return this.Jobs.Count(x => x == jobId);
         }
 
         public string DisplayString => string.Format("{0} {1:00}:{2:00}", DayOfWeekString, Time.Hours, Time.Minutes);

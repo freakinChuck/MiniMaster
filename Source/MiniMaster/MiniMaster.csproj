@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Acolyte\ManageAcolytesViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="ServiceTemplate\TemplateJobViewModel.cs" />
     <Compile Include="_Helper\BindingCommand.cs" />
     <Page Include="ServiceTemplate\ManageServiceTemplateGroupsView.xaml">
       <Generator>MSBuild:Compile</Generator>

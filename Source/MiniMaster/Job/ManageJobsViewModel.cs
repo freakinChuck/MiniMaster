@@ -25,14 +25,14 @@ namespace MiniMaster.Job
 
         public ManageJobViewModel()
         {
-            AllJobs = new BindingList<JobViewModel>(Workspace.CurrentData.Jobs.Select(x => new JobViewModel(x)).OrderBy(x => x.Text).ToList());
+            AllJobs = new BindingList<TemplateJobViewModel>(Workspace.CurrentData.Jobs.Select(x => new TemplateJobViewModel(x)).OrderBy(x => x.Order).ToList());
             SelectedJob = null;
         }
 
-        public BindingList<JobViewModel> AllJobs { get; set; }
-        private JobViewModel selectedJob;
+        public BindingList<TemplateJobViewModel> AllJobs { get; set; }
+        private TemplateJobViewModel selectedJob;
 
-        public JobViewModel SelectedJob
+        public TemplateJobViewModel SelectedJob
         {
             get { return selectedJob; }
             set
@@ -51,7 +51,7 @@ namespace MiniMaster.Job
         }
         private void AddNewJob()
         {
-            this.AllJobs.Add(new JobViewModel(JobModel.CreateNewJob()));
+            this.AllJobs.Add(new TemplateJobViewModel(JobModel.CreateNewJob()));
             Workspace.RegisterDataChanged();
             SelectedIndex = this.AllJobs.Count - 1;
         }
@@ -66,6 +66,42 @@ namespace MiniMaster.Job
             this.AllJobs.Remove(selectedJob);
             //SelectedIndex = 0;
             selectedJob.RemoveJobFromModel();
+        }
+
+        public BindingCommand UpCommand
+        {
+            get {
+                return new BindingCommand(x =>
+                {
+                    if (AllJobs.Any(j => j.Order < SelectedJob.Order))
+                    {
+                        var jobToSwitch = AllJobs.Where(j => j.Order < SelectedJob.Order).OrderByDescending(j => j.Order).FirstOrDefault();
+                        var tmpOrder = SelectedJob.Order;
+                        SelectedJob.Order = jobToSwitch.Order;
+                        jobToSwitch.Order = tmpOrder;
+                        AllJobs = new BindingList<TemplateJobViewModel>(AllJobs.OrderBy(j => j.Order).ToList());
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllJobs)));
+                    }
+                });
+            }
+        }
+        public BindingCommand DownCommand
+        {
+            get
+            {
+                return new BindingCommand(x =>
+                {
+                    if (AllJobs.Any(j => j.Order > SelectedJob.Order))
+                    {
+                        var jobToSwitch = AllJobs.Where(j => j.Order > SelectedJob.Order).OrderBy(j => j.Order).FirstOrDefault();
+                        var tmpOrder = SelectedJob.Order;
+                        SelectedJob.Order = jobToSwitch.Order;
+                        jobToSwitch.Order = tmpOrder;
+                        AllJobs = new BindingList<TemplateJobViewModel>(AllJobs.OrderBy(j => j.Order).ToList());
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllJobs)));
+                    }
+                });
+            }
         }
 
         public bool IsJobSelected => SelectedJob != null;

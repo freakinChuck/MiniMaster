@@ -11,7 +11,7 @@ namespace MiniMaster.Storage.Model.ServiceTemplate
     {
         internal ServiceTemplateModel()
         {
-
+            Jobs = new List<string>();
         }
 
         public string Id { get; set; }
@@ -26,6 +26,8 @@ namespace MiniMaster.Storage.Model.ServiceTemplate
             get { return time.Ticks; }
             set { time = new TimeSpan(value); }
         }
+
+        public List<string> Jobs { get; set; }
 
         public static ServiceTemplateModel CreateNewServiceTemplate(string groupId)
         {
