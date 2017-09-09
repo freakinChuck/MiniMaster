@@ -14,10 +14,12 @@ namespace MiniMaster.Storage.Storage
             Jobs = new List<JobModel>();
             ServiceTemplateGroups = new List<ServiceTemplateGroupModel>();
             ServiceTemplates = new List<ServiceTemplateModel>();
+            Settings = new SystemSettingsModel();
         }
         public List<AcolyteModel> Acolytes { get; set; }
         public List<JobModel> Jobs { get; set; }
         public List<ServiceTemplateGroupModel> ServiceTemplateGroups { get; set; }
         public List<ServiceTemplateModel> ServiceTemplates { get; set; }
+        public SystemSettingsModel Settings { get; set; }
     }
 }

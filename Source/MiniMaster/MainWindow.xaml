@@ -19,8 +19,8 @@
                     <RibbonApplicationMenuItem Name="OpenMenuItem" Header="Öffnen" ImageSource="{StaticResource OpenFileImage}" Click="OpenMenuItem_Click" />
                     <RibbonApplicationMenuItem Name="SaveMenuItem" Header="Speichern" ImageSource="{StaticResource SaveImage}" Click="SaveMenuItem_Click" IsEnabled="{Binding IsWorkspaceActive}" />
                     <RibbonApplicationSplitMenuItem IsEnabled="False" Height="20" />
-                    <RibbonApplicationMenuItem Header="Einstellungen" ImageSource="{StaticResource SettingsImage}"/>
-                    <RibbonApplicationMenuItem Header="Info" ImageSource="{StaticResource InfoImage}"/>
+                    <RibbonApplicationMenuItem Header="Einstellungen"  IsEnabled="{Binding IsWorkspaceActive}" ImageSource="{StaticResource SettingsImage}" Click="SettingsMenuItem_Click"/>
+                    <RibbonApplicationMenuItem Header="Info" ImageSource="{StaticResource InfoImage}" Click="InfoMenuItem_Click"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Verwaltung" IsEnabled="{Binding IsWorkspaceActive}">
@@ -30,7 +30,11 @@
                 <RibbonGroup Header="Konfiguration">
                     <RibbonButton Name="OpenTemplatesRibbonButton" Label="Vorlagen" LargeImageSource="{StaticResource TemplateImage}" Click="OpenTemplatesRibbonButton_Click" />
                     <RibbonButton Name="OpenJobsRibbonButton" Label="Aufgaben" LargeImageSource="{StaticResource JobsImage}" Click="OpenJobsRibbonButton_Click" />
-                </RibbonGroup> 
+                </RibbonGroup>
+                <RibbonGroup Header="System">
+                    <RibbonButton Label="Einstellungen" LargeImageSource="{StaticResource SettingsImage}" Click="SettingsMenuItem_Click" />
+                    <RibbonButton Label="Info" LargeImageSource="{StaticResource InfoImage}" Click="InfoMenuItem_Click" />
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <Frame Name="ContentFrame" NavigationUIVisibility="Hidden" Navigating="ContentFrame_Navigating"></Frame>

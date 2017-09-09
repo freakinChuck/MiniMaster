@@ -73,6 +73,11 @@
     <Compile Include="Acolyte\ManageAcolytesViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="ServiceTemplate\TemplateJobViewModel.cs" />
+    <Compile Include="SystemSettings\SystemSettingsViewModel.cs" />
+    <Compile Include="SystemSettings\ManageSystemSettingsView.xaml.cs">
+      <DependentUpon>ManageSystemSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemSettings\ManageSystemSettingsViewModel.cs" />
     <Compile Include="_Helper\BindingCommand.cs" />
     <Page Include="ServiceTemplate\ManageServiceTemplateGroupsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Ressources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SystemSettings\ManageSystemSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -151,5 +160,6 @@
   <ItemGroup>
     <Resource Include="Ressources\Icons\299065 - component.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

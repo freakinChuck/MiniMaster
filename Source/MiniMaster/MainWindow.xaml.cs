@@ -110,5 +110,16 @@ namespace MiniMaster
             ContentFrame.Content = new ServiceTemplate.ManageServiceTemplateGroupView();
 
         }
+
+        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new SystemSettings.ManageSystemSettingsView();
+        }
+
+        private void InfoMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("INFO, TODO");
+        }
+        
     }
 }
