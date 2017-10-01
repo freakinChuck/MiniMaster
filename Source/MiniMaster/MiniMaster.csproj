@@ -77,6 +77,11 @@
     <Compile Include="Acolyte\ManageAcolytesViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="ServiceTemplate\TemplateJobViewModel.cs" />
+    <Compile Include="Service\ManageServicesView.xaml.cs">
+      <DependentUpon>ManageServicesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service\ManageServicesViewModel.cs" />
+    <Compile Include="Service\ServiceViewModel.cs" />
     <Compile Include="SystemSettings\SystemSettingsViewModel.cs" />
     <Compile Include="SystemSettings\ManageSystemSettingsView.xaml.cs">
       <DependentUpon>ManageSystemSettingsView.xaml</DependentUpon>
@@ -112,6 +117,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Ressources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Service\ManageServicesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

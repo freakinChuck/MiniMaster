@@ -16,6 +16,9 @@ namespace MiniMaster.Storage.Model
         public bool OnlyOlderAcolytes { get; set; }
         public DateTime DateAndTime { get; set; }
 
+        public string Text { get; set; }
+        public string Comment { get; set; }
+
         public ServiceJobModel CreateNewServiceJob(string jobId)
         {
             return ServiceJobModel.CreateNewServiceJob(this.Id, jobId);

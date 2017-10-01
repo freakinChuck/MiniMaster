@@ -25,7 +25,7 @@
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Planung" IsEnabled="{Binding IsWorkspaceActive}">
                 <RibbonGroup Header="Gottesdienste">
-                    <RibbonButton Name="ServiceManagementRibbonButton" Label="Gottesdienste" LargeImageSource="{StaticResource ServiceImage}" />
+                    <RibbonButton Name="ServiceManagementRibbonButton" Label="Gottesdienste" LargeImageSource="{StaticResource ServiceImage}" Click="ServiceManagementRibbonButton_Click" />
                     <RibbonButton Name="ServiceByTemplateRibbonButton" Label="nach Vorlage" LargeImageSource="{StaticResource ServiceByTemplateImage}" Click="ServiceByTemplateRibbonButton_Click" />
                 </RibbonGroup>
             </RibbonTab>

@@ -125,5 +125,10 @@ namespace MiniMaster
         {
             ContentFrame.Content = new ServiceByTemplate.ManageServiceByTemplateView();
         }
+
+        private void ServiceManagementRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Service.ManageServiceView();
+        }
     }
 }
