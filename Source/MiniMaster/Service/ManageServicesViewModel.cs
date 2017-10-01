@@ -19,8 +19,28 @@ namespace MiniMaster.Service
             get { return selectedIndex; }
             set {
                 selectedIndex = value;
+                LoadJobs();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
             }
+        }
+
+        public BindingList<ServiceJobViewModel> AllJobs
+        {
+            get; set;
+        }
+
+        private void LoadJobs()
+        {
+            var template = this.SelectedService;
+            if (template == null)
+            {
+                this.AllJobs = new BindingList<ServiceJobViewModel>();
+            }
+            else
+            {
+                this.AllJobs = new BindingList<ServiceJobViewModel>(Workspace.CurrentData.Jobs.OrderBy(x => x.Order).Select(x => new ServiceJobViewModel(template.storageService, x)).ToList());
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllJobs)));
         }
 
         public ManageServiceViewModel()
@@ -38,6 +58,7 @@ namespace MiniMaster.Service
             set
             {
                 selectedService = value;
+                LoadJobs();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedService)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsServiceSelected)));
             }

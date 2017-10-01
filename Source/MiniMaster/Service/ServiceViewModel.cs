@@ -18,7 +18,7 @@ namespace MiniMaster.Service
             Workspace.RegisterDataChanged();
         }
 
-        private ServiceModel storageService;
+        internal ServiceModel storageService;
 
         public string Id => storageService.Id;
 
@@ -56,6 +56,28 @@ namespace MiniMaster.Service
                 this.DateAndTime = date.Add(value);
             }
         }
+
+        public bool OnlyOlderAcolytes
+        {
+            get { return storageService.OnlyOlderAcolytes; }
+            set
+            {
+                this.storageService.OnlyOlderAcolytes = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("OnlyOlderAcolytes"));
+            }
+        }
+        public bool TwoOlderAcolytes
+        {
+            get { return storageService.TwoOlderAcolytes; }
+            set
+            {
+                this.storageService.TwoOlderAcolytes = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TwoOlderAcolytes"));
+            }
+        }
+
+
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 

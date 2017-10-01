@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Service\ManageServicesViewModel.cs" />
     <Compile Include="Service\ServiceViewModel.cs" />
+    <Compile Include="Service\ServiceJobViewModel.cs" />
     <Compile Include="SystemSettings\SystemSettingsViewModel.cs" />
     <Compile Include="SystemSettings\ManageSystemSettingsView.xaml.cs">
       <DependentUpon>ManageSystemSettingsView.xaml</DependentUpon>

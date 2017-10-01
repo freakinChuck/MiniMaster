@@ -108,7 +108,7 @@
 
                                         <Button Width="20px" Command="{Binding SubtractAcolyteCommand}">-</Button>
                                         <TextBlock Text="" Width="20" />
-                                        <TextBlock Width="80" Text="{Binding NumberOfAcolytesString}" />
+                                        <TextBlock Width="100" Text="{Binding NumberOfAcolytesString}" />
                                         <TextBlock Text="" Width="20" />
                                         <Button Width="20px" Command="{Binding AddAcolyteCommand}">+</Button>
                                     </StackPanel>

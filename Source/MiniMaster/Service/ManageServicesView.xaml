@@ -40,6 +40,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -52,6 +53,30 @@
             <DatePicker Grid.Column="1" Grid.Row="0" Text="{Binding Path=SelectedService.Date, Mode=TwoWay, ConverterCulture=de-CH }" Grid.ColumnSpan="2"></DatePicker>
             <Label Grid.Column="0" Grid.Row="1">Zeit</Label>
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SelectedService.Time, Mode=TwoWay, StringFormat=\{0:hh\\:mm\}}" Grid.ColumnSpan="2"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2">nur ältere Minis</Label>
+            <CheckBox Grid.Column="1" Grid.Row="2" IsChecked="{Binding Path=SelectedService.OnlyOlderAcolytes}" Grid.ColumnSpan="2"></CheckBox>
+            <Label Grid.Column="0" Grid.Row="3">2x ältere Minis</Label>
+            <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=SelectedService.TwoOlderAcolytes}" Grid.ColumnSpan="2"></CheckBox>
+
+
+            <ItemsControl ItemsSource="{Binding AllJobs}" Grid.Row="4" Grid.ColumnSpan="4">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="{Binding JobName}" Width="150" />
+
+                            <Button Width="20px" Command="{Binding SubtractAcolyteCommand}">-</Button>
+                            <TextBlock Text="" Width="20" />
+                            <TextBlock Width="100" Text="{Binding NumberOfAcolytesString}" />
+                            <TextBlock Text="" Width="20" />
+                            <Button Width="20px" Command="{Binding AddAcolyteCommand}">+</Button>
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+
         </Grid>
     </DockPanel>
 </Page>
