@@ -59,7 +59,7 @@
             <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=SelectedService.TwoOlderAcolytes}" Grid.ColumnSpan="2"></CheckBox>
 
 
-            <ItemsControl ItemsSource="{Binding AllJobs}" Grid.Row="4" Grid.ColumnSpan="4">
+            <ItemsControl ItemsSource="{Binding AllJobs}" Grid.Row="4" Grid.ColumnSpan="3">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5">
@@ -76,7 +76,16 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-
+            <ItemsControl Grid.Row="5" Grid.ColumnSpan="4" ItemsSource="{Binding JobsWithAssignments}"  Grid.Column="3">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="{Binding Text}" Width="250" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
         </Grid>
     </DockPanel>
 </Page>
