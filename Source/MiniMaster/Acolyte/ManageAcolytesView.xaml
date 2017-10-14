@@ -40,6 +40,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -54,6 +56,47 @@
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SelectedAcolyte.Firstname, Mode=TwoWay}" Grid.ColumnSpan="2"></TextBox>
             <Label Grid.Column="0" Grid.Row="2">Eintritt</Label>
             <DatePicker Grid.Column="1" Grid.Row="2" Text="{Binding Path=SelectedAcolyte.Entry, Mode=TwoWay, ConverterCulture=de-CH}" Grid.ColumnSpan="2" ></DatePicker>
+            <Label Grid.Column="0" Grid.Row="3">Familie</Label>
+            <ComboBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=SelectedAcolyte.FamilyKey, Mode=TwoWay}" ItemsSource="{Binding AllFamilyKeys}" IsEditable="True" Grid.ColumnSpan="2" ></ComboBox>
+
+            <TabControl Grid.ColumnSpan="4" Grid.Row="5">
+                <TabItem Header="Abwesenheiten">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2">
+                            <StackPanel>
+                                <ItemsControl ItemsSource="{Binding Path=SelectedAcolyte.Absences}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="5">
+                                                <TextBlock Text="{Binding DateString}" Width="120" />
+                                                <TextBlock Text="{Binding TimeString}" Width="120" />
+                                                <TextBlock Text="" Width="20" />
+                                                <Button Command="{Binding RemoveAbsenceFromModelCommand}">Löschen</Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ScrollViewer>
+                        
+                        <Button Grid.Column="1" Grid.Row="1" Padding="5,5,5,5" Command="{Binding NewAbsenceCommand}">neue Abwesenheit</Button>
+                        
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Einsatzsperren">
+
+                </TabItem>
+            </TabControl>
+
         </Grid>
     </DockPanel>
 </Page>

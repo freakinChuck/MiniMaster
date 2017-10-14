@@ -1,0 +1,107 @@
+﻿<Window x:Class="MiniMaster.Acolyte.CreateAbsenceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniMaster.Acolyte"
+        mc:Ignorable="d"
+        Title="Absenzen" Height="400" Width="600">
+    <Window.DataContext>
+        <local:CreateAbsenceViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="1" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120px" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0">Datum</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+
+            <Label Grid.Row="1" Grid.Column="0">ganzer Tag</Label>
+            <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></CheckBox>
+                
+            <Label Grid.Row="2" Grid.Column="0">Zeit</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+
+            <Button Grid.Row="3" Grid.Column="2" Padding="5,5,5,5">Abwesenheit eintragen</Button>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120px" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0">Abwesenheit von</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+
+            <Label Grid.Row="1" Grid.Column="0">Abwesenheit bis</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+
+            <Button Grid.Row="2" Grid.Column="2" Padding="5,5,5,5">Abwesenheit eintragen</Button>
+        </Grid>
+
+        
+
+        <Border Grid.RowSpan="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding Path=AllServicesForAbsences}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                        <CheckBox IsChecked="{Binding HasAbsenceForServiceSelected}" />
+                                        <TextBlock Text="" Width="20" />
+                                        <TextBlock Text="{Binding ServiceDateAndTimeString}" Width="150" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+                
+                <Button Grid.Column="1" Grid.Row="1" Padding="5,5,5,5" Command="{Binding AbsenceByServiceCommand}">Abwesenheiten eintragen</Button>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

@@ -15,6 +15,8 @@ namespace MiniMaster.Storage.Model
         public string Firstname { get; set; }
         public DateTime? Entry { get; set; }
 
+        public string FamilyKey { get; set; }
+
         public static AcolyteModel CreateNewAcolyte()
         {
             var model = new AcolyteModel();

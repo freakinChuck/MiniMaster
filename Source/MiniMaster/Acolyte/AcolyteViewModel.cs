@@ -1,7 +1,9 @@
 ﻿using MiniMaster.Storage.Model;
 using System.ComponentModel;
 using System;
+using System.Linq;
 using MiniMaster.Storage;
+using System.Collections.Generic;
 
 namespace MiniMaster.Acolyte
 {
@@ -52,8 +54,33 @@ namespace MiniMaster.Acolyte
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("EntryYear"));
             }
         }
-
+        public string FamilyKey
+        {
+            get { return storageAcolyte.FamilyKey; }
+            set
+            {
+                storageAcolyte.FamilyKey = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FamilyKey)));
+            }
+        }
         public string DisplayName => $"{Name} {Firstname}";
+
+        public List<AbsenceViewModel> Absences
+        {
+            get
+            {
+                return Workspace.CurrentData.Absences.Where(x => x.AcolyteId == this.Id).OrderByDescending(x => x.DateAndTime)
+                    .Select(x => { var model = new AbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
+            }
+        }
+
+        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Id")
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Absences)));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

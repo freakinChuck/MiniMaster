@@ -20,6 +20,7 @@ namespace MiniMaster.Acolyte
             set {
                 selectedIndex = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllFamilyKeys)));
             }
         }
 
@@ -30,6 +31,14 @@ namespace MiniMaster.Acolyte
         }
 
         public BindingList<AcolyteViewModel> AllAcolytes { get; set; }
+        public BindingList<string> AllFamilyKeys
+        {
+            get
+            {
+                return new BindingList<string>(Workspace.CurrentData.Acolytes.Select(x => x.FamilyKey).Distinct().OrderBy(x => x).ToList());
+            }
+        }
+
         private AcolyteViewModel selectedAcolyte;
 
         public AcolyteViewModel SelectedAcolyte
@@ -66,6 +75,17 @@ namespace MiniMaster.Acolyte
             this.AllAcolytes.Remove(selectedAcolyte);
             //SelectedIndex = 0;
             selectedAcolyte.RemoveAcolyteFromModel();
+        }
+
+        public BindingCommand NewAbsenceCommand
+        {
+            get { return new BindingCommand(x => NewAbsence()); }
+        }
+        private void NewAbsence()
+        {
+            CreateAbsenceWindow window = new CreateAbsenceWindow(SelectedAcolyte.Id);
+            window.ShowDialog();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAcolyte)));
         }
 
         public bool IsAcolyteSelected => SelectedAcolyte != null;

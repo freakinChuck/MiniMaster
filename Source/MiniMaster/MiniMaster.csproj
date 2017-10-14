@@ -55,6 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Acolyte\AbsenceViewModel.cs" />
+    <Compile Include="Acolyte\CreateAbsenceViewModel.cs" />
+    <Compile Include="Acolyte\CreateAbsenceWindow.xaml.cs">
+      <DependentUpon>CreateAbsenceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceByTemplate\ManageServiceByTemplateView.xaml.cs">
       <DependentUpon>ManageServiceByTemplateView.xaml</DependentUpon>
     </Compile>
@@ -89,6 +94,10 @@
     </Compile>
     <Compile Include="SystemSettings\ManageSystemSettingsViewModel.cs" />
     <Compile Include="_Helper\BindingCommand.cs" />
+    <Page Include="Acolyte\CreateAbsenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ServiceByTemplate\ManageServiceByTemplateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

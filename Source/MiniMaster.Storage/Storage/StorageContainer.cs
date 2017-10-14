@@ -18,6 +18,7 @@ namespace MiniMaster.Storage.Storage
             ServiceTemplates = new List<ServiceTemplateModel>();
             Services = new List<ServiceModel>();
             ServiceJobs = new List<ServiceJobModel>();
+            Absences = new List<AbsenceModel>();
         }
 
         public SystemSettingsModel Settings { get; set; }
@@ -28,5 +29,6 @@ namespace MiniMaster.Storage.Storage
         public List<ServiceTemplateModel> ServiceTemplates { get; set; }
         public List<ServiceModel> Services { get; set; }
         public List<ServiceJobModel> ServiceJobs { get; set; }
+        public List<AbsenceModel> Absences { get; set; }
     }
 }
