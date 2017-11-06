@@ -16,8 +16,99 @@ namespace MiniMaster.Acolyte
         public CreateAbsenceViewModel()
         {
             LoadServices();
+            this.SingleAbsenceDateAndTime = DateTime.Today;
+            this.RangeAbsenceFromDate = DateTime.Today;
+            this.RangeAbsenceUntilDate = DateTime.Today;
+            this.PropertyChanged += CreateAbsenceViewModel_PropertyChanged;
         }
+
+        private void CreateAbsenceViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SingleAbsenceWholeDay))
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotSingleAbsenceWholeDay)));
+            }
+        }
+
         public Action CloseAction { get; set; }
+
+        public string AcolyteId { get; internal set; }
+
+        #region SingleAbsence
+
+        public DateTime SingleAbsenceDateAndTime { get; set; }
+
+        private bool singleAbsenceWholeDay;
+        public bool SingleAbsenceWholeDay
+        {
+            get { return singleAbsenceWholeDay; }
+            set {
+                singleAbsenceWholeDay = value;
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SingleAbsenceWholeDay)));
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotSingleAbsenceWholeDay)));
+            }
+        }
+
+        public bool NotSingleAbsenceWholeDay => !SingleAbsenceWholeDay;
+        public DateTime SingleAbsenceDate
+        {
+            get { return SingleAbsenceDateAndTime.Date; }
+            set
+            {
+                var time = SingleAbsenceDateAndTime.TimeOfDay;
+                this.SingleAbsenceDateAndTime = value.Add(time);
+            }
+        }
+        public TimeSpan SingleAbsenceTime
+        {
+            get { return SingleAbsenceDateAndTime.TimeOfDay; }
+            set
+            {
+                var date = SingleAbsenceDateAndTime.Date;
+                SingleAbsenceDateAndTime = date.Add(value);
+            }
+        }
+
+        public ICommand AddSingleAbsenceCommand
+        {
+            get { return new BindingCommand(x => AddSingleAbsence()); }
+        }
+
+        private void AddSingleAbsence()
+        {
+            var newAbsence = AbsenceModel.CreateNewAbsence(this.AcolyteId);
+            newAbsence.DateAndTime = SingleAbsenceWholeDay ? SingleAbsenceDate : SingleAbsenceDateAndTime;
+            newAbsence.WholeDay = SingleAbsenceWholeDay;
+            this.CloseAction?.Invoke();
+        }
+
+        #endregion
+
+        #region AbsenceByRange
+
+        public DateTime RangeAbsenceFromDate { get; set; }
+        public DateTime RangeAbsenceUntilDate { get; set; }
+
+        public ICommand AbsenceByRangeCommand
+        {
+            get { return new BindingCommand(x => AddAbsenceByRange()); }
+        }
+
+        private void AddAbsenceByRange()
+        {
+            for (DateTime absenceDate = RangeAbsenceFromDate; absenceDate <= RangeAbsenceUntilDate; absenceDate = absenceDate.AddDays(1))
+            {
+                var newAbsence = AbsenceModel.CreateNewAbsence(this.AcolyteId);
+                newAbsence.DateAndTime = absenceDate;
+                newAbsence.WholeDay = true;
+            }
+            this.CloseAction?.Invoke();
+        }
+
+        #endregion
+
+
+        #region AbsenceByService
 
         private void LoadServices()
         {
@@ -45,7 +136,6 @@ namespace MiniMaster.Acolyte
             get { return new BindingCommand(x => AbsenceByService()); }
         }
 
-        public string AcolyteId { get; internal set; }
 
         private void AbsenceByService()
         {
@@ -74,5 +164,8 @@ namespace MiniMaster.Acolyte
             }
 
         }
+
+        #endregion
+
     }
 }
