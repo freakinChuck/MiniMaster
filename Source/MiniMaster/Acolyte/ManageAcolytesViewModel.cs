@@ -88,6 +88,17 @@ namespace MiniMaster.Acolyte
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAcolyte)));
         }
 
+        public BindingCommand NewContinousAbsenceCommand
+        {
+            get { return new BindingCommand(x => NewContinousAbsence()); }
+        }
+        private void NewContinousAbsence()
+        {
+            CreateContinousAbsenceWindow window = new CreateContinousAbsenceWindow(SelectedAcolyte.Id);
+            window.ShowDialog();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAcolyte)));
+        }
+
         public bool IsAcolyteSelected => SelectedAcolyte != null;
     }
 }

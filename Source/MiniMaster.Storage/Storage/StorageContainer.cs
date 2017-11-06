@@ -19,6 +19,7 @@ namespace MiniMaster.Storage.Storage
             Services = new List<ServiceModel>();
             ServiceJobs = new List<ServiceJobModel>();
             Absences = new List<AbsenceModel>();
+            ContinousAbsences = new List<ContinousAbsenceModel>();
         }
 
         public SystemSettingsModel Settings { get; set; }
@@ -30,5 +31,6 @@ namespace MiniMaster.Storage.Storage
         public List<ServiceModel> Services { get; set; }
         public List<ServiceJobModel> ServiceJobs { get; set; }
         public List<AbsenceModel> Absences { get; set; }
+        public List<ContinousAbsenceModel> ContinousAbsences { get; set; }
     }
 }

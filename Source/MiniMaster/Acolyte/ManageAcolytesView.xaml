@@ -93,7 +93,36 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Einsatzsperren">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
+                        <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2">
+                            <StackPanel>
+                                <ItemsControl ItemsSource="{Binding Path=SelectedAcolyte.ContinousAbsences}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="5">
+                                                <TextBlock Text="{Binding DateString}" Width="120" />
+                                                <TextBlock Text="{Binding TimeString}" Width="120" />
+                                                <TextBlock Text="" Width="20" />
+                                                <Button Command="{Binding RemoveAbsenceFromModelCommand}">Löschen</Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Button Grid.Column="1" Grid.Row="1" Padding="5,5,5,5" Command="{Binding NewContinousAbsenceCommand}">neue Einsatzsperre</Button>
+
+                    </Grid>
                 </TabItem>
             </TabControl>
 

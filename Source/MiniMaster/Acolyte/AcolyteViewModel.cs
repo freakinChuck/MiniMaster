@@ -74,11 +74,21 @@ namespace MiniMaster.Acolyte
             }
         }
 
+        public List<ContinousAbsenceViewModel> ContinousAbsences
+        {
+            get
+            {
+                return Workspace.CurrentData.ContinousAbsences.Where(x => x.AcolyteId == this.Id).OrderBy(x => x.Day).ThenBy(x => x.Time)
+                    .Select(x => { var model = new ContinousAbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
+            }
+        }
+
         private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Id")
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Absences)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ContinousAbsences)));
             }
         }
 
