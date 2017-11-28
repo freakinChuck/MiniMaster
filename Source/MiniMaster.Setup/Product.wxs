@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
+
   <Product Id="*" Name="MiniMaster" Language="1033" Version="1.0.0.0" Manufacturer="Ministranten Muri" UpgradeCode="c4b668e5-0070-4401-9453-9798742b78b7">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
@@ -11,9 +12,11 @@
 		<Feature Id="ProductFeature" Title="MiniMaster Setup" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
-
     
-	</Product>
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+
+
+  </Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
@@ -28,7 +31,6 @@
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <UIRef Id="WixUI_InstallDir" />
-
   </Fragment>
 
 	<Fragment>
