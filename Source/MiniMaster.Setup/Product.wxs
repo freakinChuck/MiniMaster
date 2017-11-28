@@ -36,6 +36,8 @@
       <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
       <Component Id="MiniMaster.exe.Component" Guid="117a7b01-c46b-421d-a178-82821bba92e8">
         <File Id="MiniMaster.exe.File" Name="MiniMaster.exe" Source="$(var.MiniMaster.TargetDir)MiniMaster.exe" />
+        <File Id="MiniMaster.exe.config" Name="MiniMaster.exe.config" Source="$(var.MiniMaster.TargetDir)MiniMaster.exe.config" />
+        
         <Shortcut Id="startmenuShortcut" Directory="ProgramMenuFolder" Name="MiniMaster" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes" />
         <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
 
@@ -49,8 +51,8 @@
       <Component Id="MiniMaster.Storage.dll" Guid="a3d593a9-717e-4990-a794-a4d3e5e38eec">
         <File Id="MiniMaster.Storage.dll" Name="MiniMaster.Storage.dll" Source="$(var.MiniMaster.TargetDir)MiniMaster.Storage.dll" />
       </Component>
-      <Component Id="MiniMaster.exe.config" Guid="1e6c0f4a-eb66-41eb-aece-f06241e5d42c">
-        <File Id="MiniMaster.exe.config" Name="MiniMaster.exe.config" Source="$(var.MiniMaster.TargetDir)MiniMaster.exe.config" />
+      <Component Id="EPPlus.dll" Guid="1e6c0f4a-eb66-41eb-aece-f06241e5d42c">
+        <File Id="EPPlus.dll" Name="EPPlus.dll" Source="$(var.MiniMaster.TargetDir)EPPlus.dll" />
       </Component>
 
       <Component Id="RegistryComponent" Guid="6eec0c6d-7f31-4968-940a-78999fd59d50">
