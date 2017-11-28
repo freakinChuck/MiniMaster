@@ -22,8 +22,7 @@ build:
 
 artifacts:
   # pushing a single file with environment variable in path and "Deployment name" specified
-  - path: Source\MiniMaster\bin\$(configuration)
-    name: MiniMaster
-  
   - path: Source\MiniMaster.Setup\bin\$(configuration)
     name: MiniMaster.Setup
+  - path: Source\MiniMaster\bin\$(configuration)
+    name: MiniMaster
