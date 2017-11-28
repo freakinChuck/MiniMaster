@@ -17,6 +17,9 @@ configuration: Release
 #  - Debug
 #  - Release
 
+before_build:
+  - nuget restore
+
 build:
   project: Source/MiniMaster.sln      # path to Visual Studio solution or project
 
