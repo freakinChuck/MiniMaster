@@ -29,3 +29,7 @@ artifacts:
     name: MiniMaster.Setup
   - path: Source\MiniMaster\bin\$(configuration)
     name: MiniMaster
+    
+deploy:
+  provider: Environment
+  name: staging
