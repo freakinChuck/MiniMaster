@@ -33,7 +33,7 @@ namespace MiniMaster.Service
         {
             get
             {
-                var data = Workspace.CurrentData.ServiceJobs.Where(x => x.ServiceId == SelectedService.Id)
+                var data = Workspace.CurrentData.ServiceJobs.Where(x => x.ServiceId == SelectedService?.Id)
                     .Select(x =>
                     new
                     {
@@ -92,7 +92,7 @@ namespace MiniMaster.Service
 
         public ManageServiceViewModel()
         {
-            AllServices = new BindingList<ServiceViewModel>(Workspace.CurrentData.Services.Select(x => new ServiceViewModel(x)).OrderBy(x => x.DateAndTime).ToList());
+            AllServices = new BindingList<ServiceViewModel>(Workspace.CurrentData.Services.Where(x => x.DateAndTime >= DateTime.Today).Select(x => new ServiceViewModel(x)).OrderBy(x => x.DateAndTime).ToList());
             SelectedService = null;
         }
 

@@ -33,7 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>timetable.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Controls.Ribbon" />
@@ -65,6 +71,11 @@
     <Compile Include="Acolyte\CreateContinousAbsenceWindow.xaml.cs">
       <DependentUpon>CreateContinousAbsenceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RessourceScheduling\RessourceScheduleManager.cs" />
+    <Compile Include="RessourceScheduling\RessourceSchedulingView.xaml.cs">
+      <DependentUpon>RessourceSchedulingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RessourceScheduling\RessourceSchedulingViewModel.cs" />
     <Compile Include="ServiceByTemplate\ManageServiceByTemplateView.xaml.cs">
       <DependentUpon>ManageServiceByTemplateView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Acolyte\CreateContinousAbsenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RessourceScheduling\RessourceSchedulingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,6 +181,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -200,6 +216,12 @@
     <Resource Include="Ressources\Icons\285665 - calendar.png" />
     <Resource Include="Ressources\Icons\285670 - calendar.png" />
     <Resource Include="Ressources\Icons\299096 - calendar clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\if_file-excel-alt_285691.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="timetable.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

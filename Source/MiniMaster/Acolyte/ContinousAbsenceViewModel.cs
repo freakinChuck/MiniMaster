@@ -40,7 +40,7 @@ namespace MiniMaster.Acolyte
         }
         public string TimeString
         {
-            get { return string.Format("{0:00}:{1:00}", storageAbsence.Time.Hours, storageAbsence.Time.Minutes); }
+            get { return string.Format("{0:00}:{1:00}", TimeSpan.Parse(string.IsNullOrEmpty(storageAbsence.Time) ? "00:00" : storageAbsence.Time).Hours, TimeSpan.Parse(string.IsNullOrEmpty(storageAbsence.Time) ? "00:00" : storageAbsence.Time).Minutes); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -130,5 +130,10 @@ namespace MiniMaster
         {
             ContentFrame.Content = new Service.ManageServiceView();
         }
+
+        private void ScheduleRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new RessourceScheduling.RessourceSchedulingView();
+        }
     }
 }

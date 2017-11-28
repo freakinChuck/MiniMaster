@@ -13,4 +13,5 @@
     <BitmapImage x:Key="ServiceImage" UriSource="Icons/285665 - calendar.png" />
     <BitmapImage x:Key="ServiceByTemplateImage" UriSource="Icons/285670 - calendar.png" />
     <BitmapImage x:Key="GeneratePlanImage" UriSource="Icons/299096 - calendar clock.png" />
+    <BitmapImage x:Key="ExportImage" UriSource="Icons/if_file-excel-alt_285691.png" />
 </ResourceDictionary>

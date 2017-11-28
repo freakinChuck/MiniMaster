@@ -31,7 +31,7 @@ namespace MiniMaster.Acolyte
         {
             var newAbsence = ContinousAbsenceModel.CreateNewContinousAbsence(this.AcolyteId);
             newAbsence.Day = SelectedDayOfWeek;
-            newAbsence.Time = SelectedTime;
+            newAbsence.Time = string.Format("{0:00}:{1:00}", SelectedTime.Hours, SelectedTime.Minutes);
             this.CloseAction?.Invoke();
         }
 

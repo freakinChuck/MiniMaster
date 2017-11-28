@@ -13,7 +13,7 @@ namespace MiniMaster.Storage.Model
         public string Id { get; set; }
         public string AcolyteId { get; set; }
         public DayOfWeek Day { get; set; }
-        public TimeSpan Time { get; set; }
+        public String Time { get; set; }
 
         public static ContinousAbsenceModel CreateNewContinousAbsence(string acolyteId)
         {

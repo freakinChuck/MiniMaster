@@ -1,30 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="MiniMaster.Setup" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="c4b668e5-0070-4401-9453-9798742b78b7">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <Product Id="*" Name="MiniMaster" Language="1033" Version="1.0.0.0" Manufacturer="Ministranten Muri" UpgradeCode="c4b668e5-0070-4401-9453-9798742b78b7">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <Media Id="1" Cabinet="MiniMaster.cab" EmbedCab="yes" CompressionLevel="low" />
+    
+		<MajorUpgrade DowngradeErrorMessage="A newer version of MiniMaster is already installed."  />
 
-		<Feature Id="ProductFeature" Title="MiniMaster.Setup" Level="1">
+		<Feature Id="ProductFeature" Title="MiniMaster Setup" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
+
+    
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="MiniMaster.Setup" />
-			</Directory>
+				<Directory Id="INSTALLFOLDER" Name="MiniMaster" />
+
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="MiniMaster" />
+      </Directory>
 		</Directory>
-	</Fragment>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_InstallDir" />
+
+  </Fragment>
 
 	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
-	</Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <Component Id="MiniMaster.exe.Component" Guid="117a7b01-c46b-421d-a178-82821bba92e8">
+        <File Id="MiniMaster.exe.File" Name="MiniMaster.exe" Source="$(var.MiniMaster.TargetDir)MiniMaster.exe" />
+        <Shortcut Id="startmenuShortcut" Directory="ProgramMenuFolder" Name="MiniMaster" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+
+        <ProgId Id="MiniMaster.Document" Description="MiniMaster Dokument">
+          <Extension Id="mmst" ContentType="application/mmst">
+            <Verb Id="open" Command="Öffnen" TargetFile="MiniMaster.exe.File" Argument="&quot;%1&quot;" />
+          </Extension>
+        </ProgId>
+        
+      </Component>
+      <Component Id="MiniMaster.Storage.dll" Guid="a3d593a9-717e-4990-a794-a4d3e5e38eec">
+        <File Id="MiniMaster.Storage.dll" Name="MiniMaster.Storage.dll" Source="$(var.MiniMaster.TargetDir)MiniMaster.Storage.dll" />
+      </Component>
+      <Component Id="MiniMaster.exe.config" Guid="1e6c0f4a-eb66-41eb-aece-f06241e5d42c">
+        <File Id="MiniMaster.exe.config" Name="MiniMaster.exe.config" Source="$(var.MiniMaster.TargetDir)MiniMaster.exe.config" />
+      </Component>
+
+      <Component Id="RegistryComponent" Guid="6eec0c6d-7f31-4968-940a-78999fd59d50">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities" Name="ApplicationDescription" Value="MiniMaster Einsatzplan Generator" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities" Name="ApplicationIcon" Value="[APPLICATIONFOLDER]MiniMaster.exe,0" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities" Name="ApplicationName" Value="MiniMaster" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities\DefaultIcon" Value="[APPLICATIONFOLDER]MiniMaster.exe,1" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities\FileAssociations" Name=".mmst" Value="MiniMaster.Document" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities\MIMEAssociations" Name="application/mmst" Value="MiniMaster.Document" Type="string" />
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\MiniMaster\Capabilities\shell\Open\command" Value="&quot;[APPLICATIONFOLDER]MiniMaster.exe&quot; &quot;%1&quot;" Type="string" />-->
+
+        <RegistryValue Root="HKLM" Key="SOFTWARE\RegisteredApplications" Name="MiniMaster" Value="SOFTWARE\MiniMaster\Capabilities" Type="string" />
+
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.mmst" Name="Content Type" Value="application/mmst" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.mmst\MiniMaster.Document\ShellNew" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.mmst\OpenWithList\MiniMaster.exe" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.mmst\OpenWithProgids" Name="MiniMaster.Document" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\MiniMaster.exe\SupportedTypes" Name=".mmst" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\MiniMaster.exe\shell\open" Name="FriendlyAppName" Value="MiniMaster" Type="string" />-->
+
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\MiniMaster.exe" Value="[!MiniMaster.exe]" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\MiniMaster.exe" Name="Path" Value="[APPLICATIONFOLDER]" Type="string" />
+
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SystemFileAssociations\.mmst\shell\edit.MiniMaster.exe" Value="Bearbeiten mit MiniMaster" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SystemFileAssociations\.mmst\shell\edit.MiniMaster.exe\command" Value="&quot;[APPLICATIONFOLDER]MiniMaster.exe&quot; &quot;%1&quot;" Type="string" />
+
+      </Component>
+
+    </ComponentGroup>
+
+  </Fragment>
+
 </Wix>
