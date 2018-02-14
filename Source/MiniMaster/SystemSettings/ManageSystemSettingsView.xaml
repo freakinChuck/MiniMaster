@@ -31,17 +31,28 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="1" Grid.Row="0" Visibility="Hidden"></TextBox>
-            <Label Grid.Column="0" Grid.Row="1">Älterer Mini ab</Label>
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Settings.AgeToCountAsOldAcolyte, Mode=TwoWay}" Grid.ColumnSpan="2"></TextBox>
+            <Label Grid.Column="0" Grid.Row="1">Zeige vergangene Gottesdienste</Label>
+            <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Path=Settings.ShowPastServices, Mode=TwoWay}" Grid.ColumnSpan="2"></CheckBox>
+            <Label Grid.Column="0" Grid.Row="2">Zeige vergangene Absenzen</Label>
+            <CheckBox Grid.Column="1" Grid.Row="2" IsChecked="{Binding Path=Settings.ShowPastAbsences, Mode=TwoWay}" Grid.ColumnSpan="2"></CheckBox>
+            <Label Grid.Column="0" Grid.Row="3">Zeige vergangene GDs in Absenz</Label>
+            <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=Settings.ShowPastServicesInAbsenceWindow, Mode=TwoWay}" Grid.ColumnSpan="2"></CheckBox>
+            <Label Grid.Column="0" Grid.Row="4">Zeige GDs ohne Minis in Absenz</Label>
+            <CheckBox Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=Settings.ShowServicesWithoutJobsInAbsenceWindow, Mode=TwoWay}" Grid.ColumnSpan="2"></CheckBox>
         </Grid>
-    </DockPanel>
+    </DockPanel> 
 </Page>

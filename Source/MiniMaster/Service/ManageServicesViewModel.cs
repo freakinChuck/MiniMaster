@@ -92,7 +92,8 @@ namespace MiniMaster.Service
 
         public ManageServiceViewModel()
         {
-            AllServices = new BindingList<ServiceViewModel>(Workspace.CurrentData.Services.Where(x => x.DateAndTime >= DateTime.Today).Select(x => new ServiceViewModel(x)).OrderBy(x => x.DateAndTime).ToList());
+            bool showPast = Workspace.CurrentData.Settings.ShowPastServices;
+            AllServices = new BindingList<ServiceViewModel>(Workspace.CurrentData.Services.Where(x => x.DateAndTime >= DateTime.Today || showPast).Select(x => new ServiceViewModel(x)).OrderBy(x => x.DateAndTime).ToList());
             SelectedService = null;
         }
 

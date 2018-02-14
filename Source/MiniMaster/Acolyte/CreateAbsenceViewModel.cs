@@ -112,8 +112,11 @@ namespace MiniMaster.Acolyte
 
         private void LoadServices()
         {
+            bool showEmpty = Workspace.CurrentData.Settings.ShowServicesWithoutJobsInAbsenceWindow;
+            bool showPast = Workspace.CurrentData.Settings.ShowPastServicesInAbsenceWindow;
             AllServicesForAbsences = new BindingList<AbsenceForServiceViewModel>(Workspace.CurrentData.Services
-                //.Where(x => x.DateAndTime > DateTime.Today)
+                .Where(x => showPast || x.DateAndTime > DateTime.Today)
+                .Where(x => showEmpty|| Workspace.CurrentData.ServiceJobs.Any(j => j.ServiceId == x.Id))
                 .Select(x =>
                 {
                     return new AbsenceForServiceViewModel

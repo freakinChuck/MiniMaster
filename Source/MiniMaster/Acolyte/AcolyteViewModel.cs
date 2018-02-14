@@ -69,7 +69,8 @@ namespace MiniMaster.Acolyte
         {
             get
             {
-                return Workspace.CurrentData.Absences.Where(x => x.AcolyteId == this.Id).OrderByDescending(x => x.DateAndTime)
+                bool showPast = Workspace.CurrentData.Settings.ShowPastAbsences;
+                return Workspace.CurrentData.Absences.Where(x => x.AcolyteId == this.Id).Where(x => showPast || x.DateAndTime >= DateTime.Today).OrderByDescending(x => x.DateAndTime)
                     .Select(x => { var model = new AbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
             }
         }

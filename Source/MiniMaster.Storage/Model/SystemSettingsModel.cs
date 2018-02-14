@@ -8,7 +8,9 @@ namespace MiniMaster.Storage.Model
 {
     public class SystemSettingsModel
     {
-        public int AgeToCountAsOldAcolyte { get; set; }
-        public bool HerzjesuActive { get; set; }
+        public bool ShowPastServices { get; set; }
+        public bool ShowPastAbsences { get; set; }
+        public bool ShowServicesWithoutJobsInAbsenceWindow { get; set; }
+        public bool ShowPastServicesInAbsenceWindow { get; set; }
     }
 }

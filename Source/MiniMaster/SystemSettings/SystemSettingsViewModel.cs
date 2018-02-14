@@ -20,22 +20,40 @@ namespace MiniMaster.SystemSettings
 
         private SystemSettingsModel storageSettings;
 
-        public int AgeToCountAsOldAcolyte
+        public bool ShowPastAbsences
         {
-            get { return storageSettings.AgeToCountAsOldAcolyte; }
+            get { return storageSettings.ShowPastAbsences; }
             set
             {
-                storageSettings.AgeToCountAsOldAcolyte = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AgeToCountAsOldAcolyte"));
+                storageSettings.ShowPastAbsences = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPastAbsences)));
             }
         }
-        public bool HerzjesuActive
+        public bool ShowPastServices
         {
-            get { return storageSettings.HerzjesuActive; }
+            get { return storageSettings.ShowPastServices; }
             set
             {
-                storageSettings.HerzjesuActive = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HerzjesuActive"));
+                storageSettings.ShowPastServices = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPastServices)));
+            }
+        }
+        public bool ShowServicesWithoutJobsInAbsenceWindow
+        {
+            get { return storageSettings.ShowServicesWithoutJobsInAbsenceWindow; }
+            set
+            {
+                storageSettings.ShowServicesWithoutJobsInAbsenceWindow = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowServicesWithoutJobsInAbsenceWindow)));
+            }
+        }
+        public bool ShowPastServicesInAbsenceWindow
+        {
+            get { return storageSettings.ShowPastServicesInAbsenceWindow; }
+            set
+            {
+                storageSettings.ShowPastServicesInAbsenceWindow = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPastServicesInAbsenceWindow)));
             }
         }
 
