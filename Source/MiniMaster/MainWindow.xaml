@@ -32,6 +32,16 @@
                     <RibbonButton Name="ServiceByTemplateRibbonButton" Label="nach Vorlage" LargeImageSource="{StaticResource ServiceByTemplateImage}" Click="ServiceByTemplateRibbonButton_Click" />
                 </RibbonGroup>
             </RibbonTab>
+            <RibbonTab Header="Auswertung" IsEnabled="{Binding IsWorkspaceActive}">
+                <RibbonGroup Header="Einsatzauswertung">
+                    <RibbonButton Name="JobReportRibbonButton" Label="Einsätze" LargeImageSource="{StaticResource ServiceCountImage}" Click="JobReportRibbonButton_Click"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Absenzauswertung">
+                    <RibbonButton Name="AbsenceReportRibbonButton" Label="Absenzen" LargeImageSource="{StaticResource AbsenceCountImage}" Click="AbsenceReportRibbonButton_Click" />
+                    <RibbonButton Name="AvailabilityRibbonButton" Label="Verfügbarkeit" LargeImageSource="{StaticResource AvailabilityImage}" Click="AvailabilityRibbonButton_Click" />
+
+                </RibbonGroup>
+            </RibbonTab>
             <RibbonTab Header="Verwaltung" IsEnabled="{Binding IsWorkspaceActive}">
                 <RibbonGroup Header="Stammdaten">
                     <RibbonButton Name="OpenAcolyteRibbonButton" Label="Ministranten" LargeImageSource="{StaticResource AcolytesImage}" Click="OpenAcolyteRibbonButton_Click" />

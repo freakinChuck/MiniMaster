@@ -135,5 +135,21 @@ namespace MiniMaster
         {
             ContentFrame.Content = new RessourceScheduling.RessourceSchedulingView();
         }
+
+        private void AbsenceReportRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Reporting.AbsenceCount.AbsenceCountReportView();
+        }
+
+        private void JobReportRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Reporting.ServiceCount.ServiceCountReportView();
+        }
+
+        private void AvailabilityRibbonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Reporting.Availability.AvailabilityReportView();
+
+        }
     }
 }

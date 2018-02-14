@@ -71,6 +71,18 @@
     <Compile Include="Acolyte\CreateContinousAbsenceWindow.xaml.cs">
       <DependentUpon>CreateContinousAbsenceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\AbsenceCount\AbsenceCountReportView.xaml.cs">
+      <DependentUpon>AbsenceCountReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\AbsenceCount\AbsenceCountReportViewModel.cs" />
+    <Compile Include="Reporting\Availability\AvailabilityReportView.xaml.cs">
+      <DependentUpon>AvailabilityReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\Availability\AvailabilityReportViewModel.cs" />
+    <Compile Include="Reporting\ServiceCount\ServiceCountReportView.xaml.cs">
+      <DependentUpon>ServiceCountReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\ServiceCount\ServiceCountReportViewModel.cs" />
     <Compile Include="RessourceScheduling\RessourceScheduleManager.cs" />
     <Compile Include="RessourceScheduling\RessourceSchedulingView.xaml.cs">
       <DependentUpon>RessourceSchedulingView.xaml</DependentUpon>
@@ -115,6 +127,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Acolyte\CreateContinousAbsenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reporting\AbsenceCount\AbsenceCountReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reporting\Availability\AvailabilityReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reporting\ServiceCount\ServiceCountReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,6 +246,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="timetable.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Icons\285642 - monitor.png" />
+    <Resource Include="Ressources\Icons\299035 - marker.png" />
+    <Resource Include="Ressources\Icons\299061 - house.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

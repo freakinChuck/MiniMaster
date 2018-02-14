@@ -107,14 +107,13 @@ namespace MiniMaster.RessourceScheduling
             }
         }
 
-
         private void SetAcolytesForService(ServiceModel service)
         {
             bool onlyOlder = service.OnlyOlderAcolytes;
             bool twoOlder = service.TwoOlderAcolytes;
 
             var jobs = this.GetJobsForService(service.Id);
-            var allPossibleAcolytes = this.GetPossibleAcolytesForService(service);
+            var allPossibleAcolytes = this.GetPossibleAcolytesForService(service.DateAndTime);
 
             List<AcolyteModel> acolytesForJob = new List<AcolyteModel>();
             var count = 0;
@@ -196,7 +195,7 @@ namespace MiniMaster.RessourceScheduling
             return timeSinceEntry.TotalDays > 365 * (hasAlreadyOlderSiblings ? 2 : 4);
         }
 
-        private List<AcolyteModel> GetPossibleAcolytesForService(ServiceModel service)
+        public List<AcolyteModel> GetPossibleAcolytesForService(DateTime serviceDateTime)
         {
             List<AcolyteModel> possibleAcolytes = new List<AcolyteModel>();
             var allAcolytes = Workspace.CurrentData.Acolytes;
@@ -206,8 +205,8 @@ namespace MiniMaster.RessourceScheduling
             {
                 bool hasAbsence = Workspace.CurrentData.Absences.Any(x =>
                                     x.AcolyteId == acolyte.Id &&
-                                    (x.DateAndTime == service.DateAndTime || (x.DateAndTime.Date == service.DateAndTime.Date && x.WholeDay)));
-                bool hasContinousAbsence = Workspace.CurrentData.ContinousAbsences.Any(x => x.AcolyteId == acolyte.Id && TimeSpan.Parse(string.IsNullOrEmpty(x.Time) ? "00:00" : x.Time) == service.DateAndTime.TimeOfDay && x.Day == service.DateAndTime.DayOfWeek);
+                                    (x.DateAndTime == serviceDateTime || (x.DateAndTime.Date == serviceDateTime.Date && x.WholeDay)));
+                bool hasContinousAbsence = Workspace.CurrentData.ContinousAbsences.Any(x => x.AcolyteId == acolyte.Id && TimeSpan.Parse(string.IsNullOrEmpty(x.Time) ? "00:00" : x.Time) == serviceDateTime.TimeOfDay && x.Day == serviceDateTime.DayOfWeek);
                 if (!hasAbsence && !hasContinousAbsence)
                 {
                     possibleAcolytes.Add(acolyte);
@@ -220,10 +219,10 @@ namespace MiniMaster.RessourceScheduling
 
             possibleAcolytes = possibleAcolytes.Where(x => string.IsNullOrEmpty(x.FamilyKey) || !familyWithAbsences.Contains(x.FamilyKey)).ToList();
 
-            return OrderAcolyteList(possibleAcolytes, service);
+            return OrderAcolyteList(possibleAcolytes);
         }
 
-        private List<AcolyteModel> OrderAcolyteList(List<AcolyteModel> possibleAcolytes, ServiceModel service)
+        private List<AcolyteModel> OrderAcolyteList(List<AcolyteModel> possibleAcolytes)
         {
             var maxEntry = Workspace.CurrentData.Acolytes.Max(x => x.Entry) ?? DateTime.MinValue;
             var allServicesWithJobs = Workspace.CurrentData.Services.Where(x => x.DateAndTime > maxEntry).Select(x => new
