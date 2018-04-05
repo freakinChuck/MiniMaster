@@ -29,7 +29,7 @@ before_build:
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
   - SonarQube.Scanner.MSBuild.exe begin /k:"MiniMaster_SonarCube" /d:sonar.organization="freakinchuck-github" /d:sonar.host.url="https://sonarcloud.io" /d:"sonar.login=%SonarCubeToken%"
-  - msbuild " Source/MiniMaster.sln"
+  - msbuild "Source/MiniMaster.sln"
   - SonarQube.Scanner.MSBuild.exe end /d:"sonar.login=%SonarCubeToken%"
 #build:
 #  project: Source/MiniMaster.sln      # path to Visual Studio solution or project
