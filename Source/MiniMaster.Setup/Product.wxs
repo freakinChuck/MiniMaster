@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
 
-  <Product Id="*" Name="MiniMaster" Language="1033" Version="1.0.0.0" Manufacturer="Ministranten Muri" UpgradeCode="c4b668e5-0070-4401-9453-9798742b78b7">
+  <Product Id="*" Name="MiniMaster" Language="1033" Version="!(bind.FileVersion.MiniMaster.exe.File)" Manufacturer="Ministranten Muri" UpgradeCode="c4b668e5-0070-4401-9453-9798742b78b7">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <Media Id="1" Cabinet="MiniMaster.cab" EmbedCab="yes" CompressionLevel="low" />
