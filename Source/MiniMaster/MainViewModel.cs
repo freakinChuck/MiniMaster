@@ -19,7 +19,11 @@ namespace MiniMaster
 
         public MainViewModel()
         {
-            MainViewModel.instance = this;
+            SetInstance(this);
+        }
+        private static void SetInstance(MainViewModel newInstance)
+        {
+            MainViewModel.instance = newInstance;
         }
 
         public bool IsWorkspaceActive

@@ -11,7 +11,7 @@ using MiniMaster.Acolyte;
 
 namespace MiniMaster.RessourceScheduling
 {
-    public class RessourceScheduleManager : IDisposable
+    public sealed class RessourceScheduleManager : IDisposable
     {
         public RessourceScheduleManager() { }
 
@@ -37,7 +37,7 @@ namespace MiniMaster.RessourceScheduling
                 {
                     this.SetAcolytesForService(service);
                 }
-                catch (ApplicationException)
+                catch (IndexOutOfRangeException)
                 {
                     break;
                 }
@@ -142,13 +142,8 @@ namespace MiniMaster.RessourceScheduling
 
                 if (requiredOlderAcolytes > 0)
                 {
-                    var numberOfRealOlderAcolytes = family.Count(x => IsAcolyteAnOlderAcolyte(x, false));
-                    var numberOfAcolytesToCountAsOlder = 0;
-                    if (numberOfRealOlderAcolytes > 0)
-                    {
-                        numberOfAcolytesToCountAsOlder = family.Count(x => IsAcolyteAnOlderAcolyte(x, true));
-                    }
-                    var numberOfAcolytesToCountAsMinor = family.Count - numberOfAcolytesToCountAsOlder;
+                    int numberOfAcolytesToCountAsOlder, numberOfAcolytesToCountAsMinor;
+                    CalculateNumberOfOlderAcolytesByFamily(family, out numberOfAcolytesToCountAsOlder, out numberOfAcolytesToCountAsMinor);
                     if (numberOfAcolytesToCountAsMinor > (countOfNeededAcolytes - requiredOlderAcolytes))
                     {
                         continue;
@@ -168,10 +163,21 @@ namespace MiniMaster.RessourceScheduling
             {
                 MessageBox.Show("Der Gottesdienst vom " + service.DateAndTime.ToString() + " benötigt mehr Ministranten als für dieses Datum verfügbar sind." + Environment.NewLine +
                     "Die Planungserstellung wurde angehalten.");
-                throw new ApplicationException();
+                throw new IndexOutOfRangeException();
             }
 
             SetAcolytesForJob(jobs, acolytesForJob);
+        }
+
+        private void CalculateNumberOfOlderAcolytesByFamily(List<AcolyteModel> family, out int numberOfAcolytesToCountAsOlder, out int numberOfAcolytesToCountAsMinor)
+        {
+            var numberOfRealOlderAcolytes = family.Count(x => IsAcolyteAnOlderAcolyte(x, false));
+            numberOfAcolytesToCountAsOlder = 0;
+            if (numberOfRealOlderAcolytes > 0)
+            {
+                numberOfAcolytesToCountAsOlder = family.Count(x => IsAcolyteAnOlderAcolyte(x, true));
+            }
+            numberOfAcolytesToCountAsMinor = family.Count - numberOfAcolytesToCountAsOlder;
         }
 
         private static void SetAcolytesForJob(List<ServiceJobModel> jobs, List<AcolyteModel> acolytesForJob)
@@ -306,6 +312,9 @@ namespace MiniMaster.RessourceScheduling
             return Workspace.CurrentData.ServiceJobs.Where(j => j.ServiceId == serviceId).ToList();
         }
 
-        public void Dispose() { }
+        public void Dispose()
+        {
+            // do Nothing
+        }
     }
 }

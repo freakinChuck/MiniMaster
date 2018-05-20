@@ -119,7 +119,7 @@ namespace MiniMaster.Storage
         }
         public static bool HasCurrentWorkspaceChanges
         {
-            get { return currentWorkspace != null ? currentWorkspace.hasChanges : false; }
+            get { return currentWorkspace != null && currentWorkspace.hasChanges; }
         }
 
         public static string WorkspacePath => currentWorkspace != null ? currentWorkspace.currentFilePath : string.Empty;

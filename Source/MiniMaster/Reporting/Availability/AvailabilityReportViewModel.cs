@@ -29,11 +29,10 @@ namespace MiniMaster.Reporting.Availability
 
         private void ReloadGridSource()
         {
-            List<GridSourceItem> gridSource = new List<GridSourceItem>();
 
             var serviceTime = ReportDateAndTime;
 
-            gridSource = new RessourceScheduleManager().GetPossibleAcolytesForService(serviceTime).Select(x => new GridSourceItem { Name = x.Name + " " + x.Firstname }).ToList();
+            var gridSource = new RessourceScheduleManager().GetPossibleAcolytesForService(serviceTime).Select(x => new GridSourceItem { Name = x.Name + " " + x.Firstname }).ToList();
 
 
             this.GridSource = gridSource;
