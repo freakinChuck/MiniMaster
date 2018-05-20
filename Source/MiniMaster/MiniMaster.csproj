@@ -83,6 +83,7 @@
       <DependentUpon>ServiceCountReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reporting\ServiceCount\ServiceCountReportViewModel.cs" />
+    <Compile Include="RessourceScheduling\InsufficientAcolytesException.cs" />
     <Compile Include="RessourceScheduling\RessourceScheduleManager.cs" />
     <Compile Include="RessourceScheduling\RessourceSchedulingView.xaml.cs">
       <DependentUpon>RessourceSchedulingView.xaml</DependentUpon>

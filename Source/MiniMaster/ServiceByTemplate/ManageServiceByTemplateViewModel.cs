@@ -90,7 +90,7 @@ namespace MiniMaster.ServiceByTemplate
 
                     foreach (var job in serviceToCreate.Jobs)
                     {
-                        var newJob = ServiceJobModel.CreateNewServiceJob(newService.Id, job);
+                        ServiceJobModel.CreateNewServiceJob(newService.Id, job);
                     }
                 }
             }

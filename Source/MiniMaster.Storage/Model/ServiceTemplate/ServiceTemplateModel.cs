@@ -18,13 +18,12 @@ namespace MiniMaster.Storage.Model.ServiceTemplate
         public string GroupId { get; set; }
         public DayOfWeek Day { get; set; }
 
-        private TimeSpan time;
         [XmlIgnore]
-        public TimeSpan Time { get { return time; } set { time = value; } }
+        public TimeSpan Time { get; set; }
         public long TimeTicks
         {
-            get { return time.Ticks; }
-            set { time = new TimeSpan(value); }
+            get { return Time.Ticks; }
+            set { Time = new TimeSpan(value); }
         }
 
         public List<string> Jobs { get; set; }

@@ -163,7 +163,7 @@ namespace MiniMaster.RessourceScheduling
             {
                 MessageBox.Show("Der Gottesdienst vom " + service.DateAndTime.ToString() + " benötigt mehr Ministranten als für dieses Datum verfügbar sind." + Environment.NewLine +
                     "Die Planungserstellung wurde angehalten.");
-                throw new IndexOutOfRangeException();
+                throw new InsufficientAcolytesException();
             }
 
             SetAcolytesForJob(jobs, acolytesForJob);
