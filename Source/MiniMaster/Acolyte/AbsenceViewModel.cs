@@ -19,7 +19,7 @@ namespace MiniMaster.Acolyte
             Workspace.RegisterDataChanged();
         }
 
-        private AbsenceModel storageAbsence;
+        private readonly AbsenceModel storageAbsence;
 
         public string Id => storageAbsence.Id;
 

@@ -18,7 +18,7 @@ namespace MiniMaster.SystemSettings
             Workspace.RegisterDataChanged();
         }
 
-        private SystemSettingsModel storageSettings;
+        private readonly SystemSettingsModel storageSettings;
 
         public bool ShowPastAbsences
         {

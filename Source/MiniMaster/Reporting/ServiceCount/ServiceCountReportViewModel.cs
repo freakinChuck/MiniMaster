@@ -35,8 +35,7 @@ namespace MiniMaster.Reporting.ServiceCount
                 var acolyteId = acolyte.Id;
                 var count = Workspace.CurrentData.Services
                                         .Where(s => s.DateAndTime >= ReportFromDate)
-                                        .Where(s => Workspace.CurrentData.ServiceJobs.Any(x => x.ServiceId == s.Id && x.AcolyteId == acolyteId))
-                                        .Count();
+                                        .Count(s => Workspace.CurrentData.ServiceJobs.Any(x => x.ServiceId == s.Id && x.AcolyteId == acolyteId));
                 gridSource.Add(new GridSourceItem { Name = acolyte.Name + " " + acolyte.Firstname, NumberOfServices = count });
             }
 

@@ -18,7 +18,7 @@ namespace MiniMaster.Job
             Workspace.RegisterDataChanged();
         }
 
-        private JobModel storageJob;
+        private readonly JobModel storageJob;
 
         public string Id => storageJob.Id;
 

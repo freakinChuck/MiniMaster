@@ -108,10 +108,9 @@ namespace MiniMaster.ServiceTemplate
         }
         private void RemoveServiceTemplateGroup()
         {
-            var selectedServiceTemplateGroup = SelectedServiceTemplateGroup;
-            this.AllServiceTemplateGroups.Remove(selectedServiceTemplateGroup);
-            //SelectedIndex = 0;
-            selectedServiceTemplateGroup.RemoveServiceTemplateGroupFromModel();
+            var tmpServiceTemplateGroup = SelectedServiceTemplateGroup;
+            this.AllServiceTemplateGroups.Remove(tmpServiceTemplateGroup);
+            tmpServiceTemplateGroup.RemoveServiceTemplateGroupFromModel();
         }
 
 
@@ -132,10 +131,9 @@ namespace MiniMaster.ServiceTemplate
         }
         private void RemoveServiceTemplate()
         {
-            var selectedServiceTemplate = SelectedServiceTemplate;
-            this.AllServiceTemplates.Remove(selectedServiceTemplate);
-            //SelectedSubIndex = 0;
-            selectedServiceTemplate.RemoveServiceTemplateFromModel();
+            var tmpServiceTemplate = SelectedServiceTemplate;
+            this.AllServiceTemplates.Remove(tmpServiceTemplate);
+            tmpServiceTemplate.RemoveServiceTemplateFromModel();
         }
 
         public BindingCommand AddAcolyteCommand

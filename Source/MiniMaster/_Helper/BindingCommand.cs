@@ -9,7 +9,7 @@ namespace MiniMaster._Helper
 {
     public class BindingCommand : ICommand
     {
-        Action<object> myAction;
+        private readonly Action<object> myAction;
         public BindingCommand(Action<object> myAction)
         {
             this.myAction = myAction;

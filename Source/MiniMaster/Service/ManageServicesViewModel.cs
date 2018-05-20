@@ -28,12 +28,17 @@ namespace MiniMaster.Service
         {
             get; set;
         }
-
+        
         public List<object> JobsWithAssignments
         {
             get
             {
-                var data = Workspace.CurrentData.ServiceJobs.Where(x => x.ServiceId == SelectedService?.Id)
+                return this.GetJobsWithAssignments();
+            }
+        }
+        private List<object> GetJobsWithAssignments()
+        {
+            var data = Workspace.CurrentData.ServiceJobs.Where(x => x.ServiceId == SelectedService?.Id)
                     .Select(x =>
                     new
                     {
@@ -47,23 +52,29 @@ namespace MiniMaster.Service
                     })
                     .OrderBy(x => x.JobOrder)
                     .ThenBy(x => string.IsNullOrEmpty(x.AcolyteId));
-                return
-                    (data.Select(x => 
-                            (object)new
-                            {
-                                Text = string.Format(
-                                                "{0}: {1}", 
-                                                x.JobName, 
-                                                string.IsNullOrEmpty(x.AcolyteId) ? 
-                                                    "keine Zuteilung" : 
-                                                    (string.IsNullOrEmpty(x.AcolyteFirstname) ? 
-                                                        "unbekannter Ministrant" : 
-                                                        string.Format("{0} {1}", x.AcolyteFirstname, x.AcolyteName)
-                                                    )
-                                        )
-                            }).ToList()
-                    );
+            return
+                (data.Select(x =>
+                        (object)new
+                        {
+                            Text = string.Format(
+                                            "{0}: {1}",
+                                            x.JobName,
+                                            GetAcolyteDisplayString(x)
+                                    )
+                        }).ToList()
+                );
+        }
+
+        private object GetAcolyteDisplayString(dynamic x)
+        {
+            if (string.IsNullOrEmpty(x.AcolyteId))
+            {
+                return "keine Zuteilung";
             }
+
+            return string.IsNullOrEmpty(x.AcolyteFirstname)
+                ? "unbekannter Ministrant"
+                : string.Format("{0} {1}", x.AcolyteFirstname, x.AcolyteName);
         }
 
         private void LoadJobs()
@@ -131,10 +142,9 @@ namespace MiniMaster.Service
         }
         private void RemoveService()
         {
-            var selectedService = SelectedService;
-            this.AllServices.Remove(selectedService);
-            //SelectedIndex = 0;
-            selectedService.RemoveServiceFromModel();
+            var tmpService = SelectedService;
+            this.AllServices.Remove(tmpService);
+            tmpService.RemoveServiceFromModel();
         }
 
         public bool IsServiceSelected => SelectedService != null;

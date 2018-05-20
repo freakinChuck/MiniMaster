@@ -43,7 +43,7 @@ namespace MiniMaster.Storage
                 workspace.storageContainer = container;
                 workspace.currentFilePath = filePath;
                 currentWorkspace = workspace;
-                WorkspaceChanged?.Invoke(currentWorkspace, new EventArgs());
+                WorkspaceChanged?.Invoke(null, new EventArgs());
                 SetHasChanges(false);
             }
         }
@@ -57,7 +57,7 @@ namespace MiniMaster.Storage
 
             var newWorkspace = new Workspace();
             currentWorkspace = newWorkspace;
-            WorkspaceChanged?.Invoke(currentWorkspace, new EventArgs());
+            WorkspaceChanged?.Invoke(null, new EventArgs());
             SetHasChanges(true);
         }
 
@@ -67,7 +67,7 @@ namespace MiniMaster.Storage
 
             if (currentWorkspace.HasChanges)
             {
-                AskSaveWorkspace?.Invoke(currentWorkspace, args);
+                AskSaveWorkspace?.Invoke(null, args);
                 if (!args.Cancel && args.DoSave)
                 {
                     currentWorkspace.SaveWorkspace();
@@ -87,7 +87,7 @@ namespace MiniMaster.Storage
             if (string.IsNullOrEmpty(this.currentFilePath))
             {
                 WorkspacePathEventArgs args = new WorkspacePathEventArgs(this, true);
-                AskSavePathWorkspace?.Invoke(this, args);
+                AskSavePathWorkspace?.Invoke(null, args);
                 if (string.IsNullOrEmpty(args.Path))
                 {
                     throw new ArgumentException("Path");
@@ -107,7 +107,7 @@ namespace MiniMaster.Storage
         private static void SetHasChanges(bool hasChanges)
         {
             currentWorkspace.hasChanges = hasChanges;
-            HasChangesChanged?.Invoke(currentWorkspace, new EventArgs());
+            HasChangesChanged?.Invoke(null, new EventArgs());
         }
 
         public static bool IsWorkspaceActive => currentWorkspace != null;

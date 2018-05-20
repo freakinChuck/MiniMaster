@@ -35,8 +35,12 @@ namespace MiniMaster.Acolyte
         {
             get
             {
-                return new BindingList<string>(Workspace.CurrentData.Acolytes.Select(x => x.FamilyKey).Distinct().OrderBy(x => x).ToList());
+                return this.GetAllFamilyKeys();
             }
+        }
+        private BindingList<string> GetAllFamilyKeys()
+        {
+            return new BindingList<string>(Workspace.CurrentData.Acolytes.Select(x => x.FamilyKey).Distinct().OrderBy(x => x).ToList());
         }
 
         private AcolyteViewModel selectedAcolyte;
@@ -71,10 +75,9 @@ namespace MiniMaster.Acolyte
         }
         private void RemoveAcolyte()
         {
-            var selectedAcolyte = SelectedAcolyte;
-            this.AllAcolytes.Remove(selectedAcolyte);
-            //SelectedIndex = 0;
-            selectedAcolyte.RemoveAcolyteFromModel();
+            var tmpAcolyte = SelectedAcolyte;
+            this.AllAcolytes.Remove(tmpAcolyte);
+            tmpAcolyte.RemoveAcolyteFromModel();
         }
 
         public BindingCommand NewAbsenceCommand

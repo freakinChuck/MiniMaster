@@ -62,10 +62,9 @@ namespace MiniMaster.Job
         }
         private void RemoveJob()
         {
-            var selectedJob = SelectedJob;
-            this.AllJobs.Remove(selectedJob);
-            //SelectedIndex = 0;
-            selectedJob.RemoveJobFromModel();
+            var tmpJob = SelectedJob;
+            this.AllJobs.Remove(tmpJob);
+            tmpJob.RemoveJobFromModel();
         }
 
         public BindingCommand UpCommand

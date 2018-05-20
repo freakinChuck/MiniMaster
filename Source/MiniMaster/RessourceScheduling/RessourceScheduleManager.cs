@@ -79,31 +79,34 @@ namespace MiniMaster.RessourceScheduling
                 foreach (var job in jobsOfService.OrderBy(x => x?.Job.Order))
                 {
                     worksheet.SetValue(rowCounter, 3,
-                        $"{job?.Job?.Text ?? "unbekannte Aufgabe"}"
+                        $"{job.Job?.Text ?? "unbekannte Aufgabe"}"
                     );
                     int columnCounter = 4;
                     foreach (var acolyteId in job.Acolytes)
                     {
-                        if (string.IsNullOrEmpty(acolyteId))
-                        {
-                            var acolyte = Workspace.CurrentData.Acolytes.FirstOrDefault(x => x.Id == acolyteId);
-                            worksheet.SetValue(rowCounter, columnCounter++,
-                                "keine Zuteilung"
-                            );
-                        }
-                        else
-                        {
-                            var acolyte = Workspace.CurrentData.Acolytes.FirstOrDefault(x => x.Id == acolyteId);
-                            worksheet.SetValue(rowCounter, columnCounter++,
-                                (acolyte != null ? acolyte.Firstname + " " + acolyte.Name : "unbekannter Ministrant")
-                            );
-                        }                        
+                        worksheet.SetValue(rowCounter, columnCounter++, GetAssignedAcolyteName(acolyteId));
+
+                                            
                     }                   
 
                     rowCounter++;
                 }
 
                 rowCounter++;
+            }
+        }
+
+        private string GetAssignedAcolyteName(string assignedAcolyteId)
+        {
+            if (string.IsNullOrEmpty(assignedAcolyteId))
+            {
+                return "keine Zuteilung";
+            }
+            else
+            {
+                var acolyte = Workspace.CurrentData.Acolytes.FirstOrDefault(x => x.Id == assignedAcolyteId);
+                var acolyteName = acolyte != null ? acolyte.Firstname + " " + acolyte.Name : "unbekannter Ministrant";
+                return acolyteName;
             }
         }
 
@@ -118,7 +121,7 @@ namespace MiniMaster.RessourceScheduling
             List<AcolyteModel> acolytesForJob = new List<AcolyteModel>();
             var count = 0;
             var countOfNeededAcolytes = jobs.Count;
-            var requiredOlderAcolytes = onlyOlder ? countOfNeededAcolytes : (twoOlder ? 2 : 0);
+            int requiredOlderAcolytes = GetRequiredNumberOfOlder(onlyOlder, twoOlder, countOfNeededAcolytes);
 
             for (int acolyteCount = 0; acolyteCount < allPossibleAcolytes.Count; acolyteCount++)
             {
@@ -136,31 +139,25 @@ namespace MiniMaster.RessourceScheduling
                 {
                     continue;
                 }
-                else
+
+                if (requiredOlderAcolytes > 0)
                 {
-                    if (requiredOlderAcolytes > 0)
+                    var numberOfRealOlderAcolytes = family.Count(x => IsAcolyteAnOlderAcolyte(x, false));
+                    var numberOfAcolytesToCountAsOlder = 0;
+                    if (numberOfRealOlderAcolytes > 0)
                     {
-                        var numberOfRealOlderAcolytes = family.Count(x => IsAcolyteAnOlderAcolyte(x, false));
-                        var numberOfAcolytesToCountAsOlder = 0;
-                        if (numberOfRealOlderAcolytes > 0)
-                        {
-                            numberOfAcolytesToCountAsOlder = family.Count(x => IsAcolyteAnOlderAcolyte(x, true));
-                        }
-                        var numberOfAcolytesToCountAsMinor = family.Count - numberOfAcolytesToCountAsOlder;
-                        if (numberOfAcolytesToCountAsMinor > (countOfNeededAcolytes - requiredOlderAcolytes))
-                        {
-                            continue;
-                        }
-
-                        requiredOlderAcolytes -= numberOfAcolytesToCountAsOlder;
+                        numberOfAcolytesToCountAsOlder = family.Count(x => IsAcolyteAnOlderAcolyte(x, true));
                     }
-                    countOfNeededAcolytes -= family.Count;
-
-                    foreach (var acolyte in family)
+                    var numberOfAcolytesToCountAsMinor = family.Count - numberOfAcolytesToCountAsOlder;
+                    if (numberOfAcolytesToCountAsMinor > (countOfNeededAcolytes - requiredOlderAcolytes))
                     {
-                        acolytesForJob.Add(acolyte);
+                        continue;
                     }
+
+                    requiredOlderAcolytes -= numberOfAcolytesToCountAsOlder;
                 }
+                countOfNeededAcolytes -= family.Count;
+                SetFamilyForJob(acolytesForJob, family);
                 if (acolytesForJob.Count >= jobs.Count)
                 {
                     break;
@@ -169,11 +166,16 @@ namespace MiniMaster.RessourceScheduling
 
             if (acolytesForJob.Count < jobs.Count)
             {
-                MessageBox.Show("Der Gottesdienst vom " + service.DateAndTime.ToString() + " benötigt mehr Ministranten als für dieses Datum verfügbar sind." + Environment.NewLine + 
+                MessageBox.Show("Der Gottesdienst vom " + service.DateAndTime.ToString() + " benötigt mehr Ministranten als für dieses Datum verfügbar sind." + Environment.NewLine +
                     "Die Planungserstellung wurde angehalten.");
                 throw new ApplicationException();
             }
 
+            SetAcolytesForJob(jobs, acolytesForJob);
+        }
+
+        private static void SetAcolytesForJob(List<ServiceJobModel> jobs, List<AcolyteModel> acolytesForJob)
+        {
             foreach (var job in jobs)
             {
                 if (string.IsNullOrEmpty(job.AcolyteId))
@@ -187,6 +189,32 @@ namespace MiniMaster.RessourceScheduling
                     }
                 }
             }
+        }
+
+        private static void SetFamilyForJob(List<AcolyteModel> acolytesForJob, List<AcolyteModel> family)
+        {
+            foreach (var acolyte in family)
+            {
+                acolytesForJob.Add(acolyte);
+            }
+        }
+
+        private static int GetRequiredNumberOfOlder(bool onlyOlder, bool twoOlder, int countOfNeededAcolytes)
+        {
+            int numberRequired;
+            if (onlyOlder)
+            {
+                numberRequired = countOfNeededAcolytes;
+            }
+            else if (twoOlder)
+            {
+                numberRequired = 2;
+            }
+            else
+            {
+                numberRequired = 0;
+            }
+            return numberRequired;
         }
 
         private bool IsAcolyteAnOlderAcolyte(AcolyteModel acolyte, bool hasAlreadyOlderSiblings)

@@ -19,7 +19,7 @@ namespace MiniMaster.ServiceTemplate
             Workspace.RegisterDataChanged();
         }
 
-        private ServiceTemplateGroupModel storageServiceTemplateGroup;
+        private readonly ServiceTemplateGroupModel storageServiceTemplateGroup;
 
         public string Id => storageServiceTemplateGroup.Id;
 

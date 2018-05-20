@@ -20,7 +20,7 @@ namespace MiniMaster.Acolyte
             Workspace.RegisterDataChanged();
         }
 
-        private AcolyteModel storageAcolyte;
+        private readonly AcolyteModel storageAcolyte;
 
         public string Id => storageAcolyte.Id;
 
@@ -69,19 +69,27 @@ namespace MiniMaster.Acolyte
         {
             get
             {
-                bool showPast = Workspace.CurrentData.Settings.ShowPastAbsences;
-                return Workspace.CurrentData.Absences.Where(x => x.AcolyteId == this.Id).Where(x => showPast || x.DateAndTime >= DateTime.Today).OrderByDescending(x => x.DateAndTime)
-                    .Select(x => { var model = new AbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
+                return this.GetAbsences();
             }
+        }
+        private List<AbsenceViewModel> GetAbsences()
+        {
+            bool showPast = Workspace.CurrentData.Settings.ShowPastAbsences;
+            return Workspace.CurrentData.Absences.Where(x => x.AcolyteId == this.Id).Where(x => showPast || x.DateAndTime >= DateTime.Today).OrderByDescending(x => x.DateAndTime)
+                .Select(x => { var model = new AbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
         }
 
         public List<ContinousAbsenceViewModel> ContinousAbsences
         {
             get
             {
-                return Workspace.CurrentData.ContinousAbsences.Where(x => x.AcolyteId == this.Id).OrderBy(x => x.Day).ThenBy(x => x.Time)
-                    .Select(x => { var model = new ContinousAbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
+                return this.GetContinousAbsences();
             }
+        }
+        private List<ContinousAbsenceViewModel> GetContinousAbsences()
+        {
+            return Workspace.CurrentData.ContinousAbsences.Where(x => x.AcolyteId == this.Id).OrderBy(x => x.Day).ThenBy(x => x.Time)
+                .Select(x => { var model = new ContinousAbsenceViewModel(x); model.PropertyChanged += Model_PropertyChanged; return model; }).ToList();
         }
 
         private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)

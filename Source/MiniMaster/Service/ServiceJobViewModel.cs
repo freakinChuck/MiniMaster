@@ -13,7 +13,7 @@ namespace MiniMaster.Service
 {
     public class ServiceJobViewModel : INotifyPropertyChanged
     {
-        private ServiceModel serviceParent;
+        private readonly ServiceModel serviceParent;
         public ServiceJobViewModel(ServiceModel service, JobModel job)
         {
             this.JobId = job.Id;

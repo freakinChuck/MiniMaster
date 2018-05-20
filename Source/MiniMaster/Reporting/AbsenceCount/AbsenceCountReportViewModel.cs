@@ -34,8 +34,7 @@ namespace MiniMaster.Reporting.AbsenceCount
             {
                 var acolyteId = acolyte.Id;
                 var count = Workspace.CurrentData.Absences
-                                        .Where(s => s.DateAndTime >= ReportFromDate && s.AcolyteId == acolyteId)
-                                        .Count();
+                                        .Count(s => s.DateAndTime >= ReportFromDate && s.AcolyteId == acolyteId);
                 gridSource.Add(new GridSourceItem { Name = acolyte.Name + " " + acolyte.Firstname, NumberOfAbsences = count });
             }
 

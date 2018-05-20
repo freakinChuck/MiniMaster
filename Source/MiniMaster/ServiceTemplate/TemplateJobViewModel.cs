@@ -12,7 +12,7 @@ namespace MiniMaster.ServiceTemplate
 {
     public class TemplateJobViewModel : INotifyPropertyChanged
     {
-        private ServiceTemplateModel serviceParent;
+        private readonly ServiceTemplateModel serviceParent;
         public TemplateJobViewModel(ServiceTemplateModel service, JobModel job)
         {
             this.JobId = job.Id;
